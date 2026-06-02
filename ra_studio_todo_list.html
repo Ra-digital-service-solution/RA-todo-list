@@ -1,0 +1,133 @@
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-sans)}
+  .page{padding:1.5rem 1rem 2rem}
+  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .header-left h1{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+  .header-left p{font-size:13px;color:var(--color-text-secondary);margin-top:2px}
+  .date-badge{font-size:12px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);padding:6px 12px;border-radius:var(--border-radius-md);color:var(--color-text-secondary)}
+  .progress-bar{background:var(--color-background-secondary);border-radius:99px;height:6px;margin-bottom:1.5rem;overflow:hidden}
+  .progress-fill{height:100%;background:#1D9E75;border-radius:99px;transition:width 0.4s ease;width:0%}
+  .progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-secondary);margin-bottom:6px}
+  .sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .section{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+  .section-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 10px;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .section-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--color-text-primary)}
+  .section-title i{font-size:16px}
+  .section-count{font-size:11px;color:var(--color-text-secondary);background:var(--color-background-secondary);padding:2px 8px;border-radius:99px;border:0.5px solid var(--color-border-tertiary)}
+  .tasks{padding:8px 10px}
+  .task{display:flex;align-items:flex-start;gap:10px;padding:6px 4px;cursor:pointer;border-radius:var(--border-radius-md);transition:background 0.15s}
+  .task:hover{background:var(--color-background-secondary)}
+  .task-cb{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--color-border-secondary);background:transparent;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;cursor:pointer}
+  .task-cb.done{background:#1D9E75;border-color:#1D9E75}
+  .task-cb.done::after{content:'';display:block;width:4px;height:7px;border:1.5px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px)}
+  .task-label{font-size:13px;color:var(--color-text-primary);line-height:1.4;transition:color 0.15s}
+  .task-label.done{color:var(--color-text-tertiary);text-decoration:line-through}
+  .goal-section{margin-top:1.25rem;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+  .goal-header{display:flex;align-items:center;gap:8px;padding:12px 14px 10px;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;font-weight:500}
+  .goal-header i{font-size:16px;color:#BA7517}
+  .goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;padding:10px}
+  .goal-chip{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:12.5px;color:var(--color-text-primary)}
+  .goal-chip i{font-size:15px;color:#3B6D11;flex-shrink:0}
+  .s-blue .section-title i{color:#378ADD}
+  .s-teal .section-title i{color:#1D9E75}
+  .s-amber .section-title i{color:#BA7517}
+  .s-coral .section-title i{color:#D85A30}
+  .s-purple .section-title i{color:#7F77DD}
+  .s-pink .section-title i{color:#D4537E}
+  .s-green .section-title i{color:#639922}
+  .s-gray .section-title i{color:#888780}
+  .s-dark .section-title i{color:#534AB7}
+</style>
+
+<div class="page">
+  <h2 class="sr-only">RA Studio Tomorrow To-Do List — interactive task tracker</h2>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Tomorrow's to-do list</h1>
+      <p>RA Studio — Sales & Growth</p>
+    </div>
+    <div class="date-badge"><i class="ti ti-calendar" aria-hidden="true"></i> Tomorrow</div>
+  </div>
+
+  <div class="progress-label">
+    <span>Overall progress</span>
+    <span id="prog-txt">0 / 52 tasks</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+
+  <div class="sections" id="sections-grid"></div>
+
+  <div class="goal-section">
+    <div class="goal-header"><i class="ti ti-target" aria-hidden="true"></i> Main goals for the day</div>
+    <div class="goals">
+      <div class="goal-chip"><i class="ti ti-device-desktop" aria-hidden="true"></i>Create product demos</div>
+      <div class="goal-chip"><i class="ti ti-users" aria-hidden="true"></i>Generate qualified leads</div>
+      <div class="goal-chip"><i class="ti ti-send" aria-hidden="true"></i>Send outreach</div>
+      <div class="goal-chip"><i class="ti ti-file-analytics" aria-hidden="true"></i>Share audit reports</div>
+      <div class="goal-chip"><i class="ti ti-phone-call" aria-hidden="true"></i>Conduct consultations</div>
+      <div class="goal-chip"><i class="ti ti-calendar-plus" aria-hidden="true"></i>Book new client meetings</div>
+      <div class="goal-chip"><i class="ti ti-trending-up" aria-hidden="true"></i>Grow RA Studio pipeline</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const data = [
+  {title:"Lead generation",icon:"ti-user-search",color:"s-blue",tasks:["Find new leads from all target industries","Build and update lead database","Collect decision-maker contact details","Qualify high-potential prospects"]},
+  {title:"Demo & product development",icon:"ti-presentation",color:"s-teal",tasks:["Create CRM demo","Create ERP demo","Create real estate demo","Create website development demo","Create WhatsApp automation demo","Update existing product demos"]},
+  {title:"Audit & research",icon:"ti-search",color:"s-amber",tasks:["Audit business websites","Audit SEO performance","Audit lead generation process","Audit social media presence","Prepare personalized audit reports"]},
+  {title:"Outreach",icon:"ti-send",color:"s-coral",tasks:["Send cold emails","Send LinkedIn connection requests","Send LinkedIn outreach messages","Send WhatsApp introductions","Follow up with previous prospects"]},
+  {title:"Consultation",icon:"ti-phone-call",color:"s-purple",tasks:["Conduct discovery calls","Understand client requirements","Present audit findings","Show product demos","Identify automation opportunities","Schedule follow-up meetings"]},
+  {title:"Sales & proposals",icon:"ti-file-description",color:"s-pink",tasks:["Prepare proposals","Customize service packages","Share quotations","Update sales pipeline","Track deal progress"]},
+  {title:"Marketing",icon:"ti-speakerphone",color:"s-green",tasks:["Update portfolio","Create case studies","Publish LinkedIn content","Create WhatsApp marketing content","Improve service documentation"]},
+  {title:"Team management",icon:"ti-layout-kanban",color:"s-gray",tasks:["Review ongoing projects","Assign development tasks","Review project requirements","Track team progress"]},
+  {title:"Business growth",icon:"ti-trending-up",color:"s-dark",tasks:["Identify new industry opportunities","Create industry-specific solutions","Improve service offerings","Plan next sales campaigns"]},
+  {title:"End of day review",icon:"ti-checklist",color:"s-teal",tasks:["Total leads generated","Total outreach sent","Meetings booked","Proposals sent","Opportunities created","Next-day action items"]},
+];
+
+const grid = document.getElementById('sections-grid');
+const fill = document.getElementById('prog-fill');
+const txt = document.getElementById('prog-txt');
+let total = 0, done = 0;
+
+data.forEach((sec,si)=>{
+  const card = document.createElement('div');
+  card.className = 'section '+sec.color;
+  const h = document.createElement('div');
+  h.className = 'section-header';
+  h.innerHTML = `<div class="section-title"><i class="ti ${sec.icon}" aria-hidden="true"></i>${sec.title}</div><span class="section-count" id="cnt-${si}">0 / ${sec.tasks.length}</span>`;
+  card.appendChild(h);
+  const body = document.createElement('div');
+  body.className = 'tasks';
+  let secDone = 0;
+  sec.tasks.forEach((t,ti)=>{
+    total++;
+    const row = document.createElement('div');
+    row.className = 'task';
+    row.innerHTML = `<div class="task-cb" id="cb-${si}-${ti}" role="checkbox" aria-checked="false" tabindex="0"></div><span class="task-label" id="lbl-${si}-${ti}">${t}</span>`;
+    row.addEventListener('click',()=>{
+      const cb = document.getElementById(`cb-${si}-${ti}`);
+      const lbl = document.getElementById(`lbl-${si}-${ti}`);
+      const checked = cb.classList.toggle('done');
+      cb.setAttribute('aria-checked', checked);
+      lbl.classList.toggle('done', checked);
+      checked ? (done++, secDone++) : (done--, secDone--);
+      const cntEl = document.getElementById(`cnt-${si}`);
+      const sd = parseInt(cntEl.textContent);
+      const counted = Array.from(card.querySelectorAll('.task-cb.done')).length;
+      cntEl.textContent = `${counted} / ${sec.tasks.length}`;
+      const pct = Math.round((done/total)*100);
+      fill.style.width = pct+'%';
+      txt.textContent = `${done} / ${total} tasks`;
+    });
+    body.appendChild(row);
+  });
+  card.appendChild(body);
+  grid.appendChild(card);
+});
+
+txt.textContent = `0 / ${total} tasks`;
+</script>
